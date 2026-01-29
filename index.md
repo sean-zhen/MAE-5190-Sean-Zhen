@@ -5,10 +5,9 @@ title: Sean Zhen
 
 ## About Me
 
-
 ![Profile Picture]({{ "assets/images/profile.jpg" | relative_url }}){: class="profile-image"}
-
  
-My name is {{ site.name }}.
+Hi, my name is {{ site.name }}. I am taking MAE 5190 - Fast Robots at Cornell University. I am currently a senior and pursuing a Master of Engineering in Mechanical Engineering.
 
-Take a look at <a href="{{ "/projects/" | relative_url }}">my projects</a> and <a href="{{ "/cv/" | relative_url }}">CV</a>.
+
+Last updated: 1/29/2026
