@@ -130,7 +130,7 @@ I installed Python 3.13 and pip. I created a new virtual environment using Comma
     I created a new case for `GET_TIME_MILLIS` and wrote the following code.
     <figure><img src="{{ '/assets/images/Lab1B_Task3_3.jpg' | relative_url }}" width="480"></figure>
     In a Jupyter notebook, I ran the following code to make the robot output a time stamp to the string characteristic.
-    <figure><img src="{{ '/assets/images/Lab1B_Task3_4.JPG' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task3_4.jpg' | relative_url }}" width="480"></figure>
     The Artemis board outputs the time to the Serial Monitor in milliseconds.
     <figure><img src="{{ '/assets/images/Lab1B_Task3_5.jpg' | relative_url }}" width="480"></figure> 
 
