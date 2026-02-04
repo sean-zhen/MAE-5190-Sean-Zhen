@@ -22,9 +22,7 @@ I installed the Arduino IDE on my laptop and added the SparkFun Apollo3 boards m
     <iframe width="480" height="270" src="https://youtube.com/embed/OgtFOxUEX8U" allowfullscreen> </iframe>
 
 3. I ran the `Example4_Serial` example to test the serial printing. I set the baud rate in the Serial Monitor to 115200 baud and made sure it is the same value in the sketch. I typed in "Test" as the message, and the serial monitor printed "Test".
-    <figure>
-        <img src="{{ '/assets/images/Lab1A_Task3.JPG' | relative_url }}"
-            width="480">
+    <figure> <img src="{{ '/assets/images/Lab1A_Task3.jpg' | relative_url }}" width="480">
     </figure>
 
 4. I ran the `Example2_analogRead` example to retrieve the analog value of the chip's temperature. I placed my finger on the chip of the Artemis Nano board. Before I placed my finger on the chip, the temp count was about 32900. After placing my finger on the chip for at least 1 minute, the temp count increased to about 33250.
@@ -64,44 +62,42 @@ I installed Python 3.13 and pip. I created a new virtual environment using Comma
 
 <h4>Configurations</h4>
 1. In connections.yaml, I updated the MAC address to `artemis_address: 'c0:81:c4:21:22:64'`, using the address printed in Serial Monitor.
-    <figure>
-        <img src="{{ '/assets/images/Lab1B_Configs1.JPG' | relative_url }}"
-            width="480">
+    <figure> <img src="{{ '/assets/images/Lab1B_Configs1.jpg' | relative_url }} width="480">
     </figure>
 
 2. In a new Jupyter notebook, I ran the following code to generate a new UUID.
     <figure>
-        <img src="{{ '/assets/images/Lab1B_Configs2.JPG' | relative_url }}"
+        <img src="{{ '/assets/images/Lab1B_Configs2.jpg' | relative_url }}"
             width="480">
     </figure>
     In `ble_arduino.ino`, I replaced the BLEService UUID with the generated UUID.
     <figure>
-        <img src="{{ '/assets/images/Lab1B_Configs2_2.JPG' | relative_url }}"
+        <img src="{{ '/assets/images/Lab1B_Configs2_2.jpg' | relative_url }}"
             width="480">
     </figure>
     In `connections.yaml`, I replaced ble_service with the generated UUID.
     <figure>
-        <img src="{{ '/assets/images/Lab1B_Configs2_3.JPG' | relative_url }}"
+        <img src="{{ '/assets/images/Lab1B_Configs2_3.jpg' | relative_url }}"
             width="480">
     </figure>
 
 3. I checked the UUIDs in `ble_arduino.ino` and `connections.yaml` to make sure they are the same.
     <figure>
-        <img src="{{ '/assets/images/Lab1B_Configs3.JPG' | relative_url }}"
+        <img src="{{ '/assets/images/Lab1B_Configs3.jpg' | relative_url }}"
             width="480">
     </figure>
     <figure>
-        <img src="{{ '/assets/images/Lab1B_Configs2_3.JPG' | relative_url }}"
+        <img src="{{ '/assets/images/Lab1B_Configs2_3.jpg' | relative_url }}"
             width="480">
     </figure>
 
 4. I checked that the command types defined in `enum CommandTypes` in `ble_arduino.ino` are the same as the ones defined in `cmd_types.py`.
     <figure>
-        <img src="{{ '/assets/images/Lab1B_Configs4.JPG' | relative_url }}"
+        <img src="{{ '/assets/images/Lab1B_Configs4.jpg' | relative_url }}"
             width="480">
     </figure>
     <figure>
-        <img src="{{ '/assets/images/Lab1B_Configs4_2.JPG' | relative_url }}"
+        <img src="{{ '/assets/images/Lab1B_Configs4_2.jpg' | relative_url }}"
             width="480">
     </figure>
 
@@ -109,45 +105,45 @@ I installed Python 3.13 and pip. I created a new virtual environment using Comma
 
 6. I ran all of the code blocks in `demo.ipynb`. This is the output displayed in the Serial Monitor. 
     <figure>
-        <img src="{{ '/assets/images/Lab1B_Configs6.JPG' | relative_url }}"
+        <img src="{{ '/assets/images/Lab1B_Configs6.jpg' | relative_url }}"
             width="480">
     </figure>
 
 <h4>Tasks</h4>
 1. In case `ECHO`, I added the following code. 
-    <figure><img src="{{ '/assets/images/Lab1B_Task1_1.JPG' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task1_1.jpg' | relative_url }}" width="480"></figure>
     In a Jupyter notebook, I ran the following code to send the string value `NI HAO-DY`.
-    <figure><img src="{{ '/assets/images/Lab1B_Task1_2.JPG' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task1_2.jpg' | relative_url }}" width="480"></figure>
     The Artemis board received the string value and printed an augmented string to the Serial Monitor. 
-    <figure><img src="{{ '/assets/images/Lab1B_Task1_3.JPG' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task1_3.jpg' | relative_url }}" width="480"></figure>
 
 2. In case `SEND_THREE_FLOATS`, I wrote the following code.
-    <figure><img src="{{ '/assets/images/Lab1B_Task2_1.JPG' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task2_1.jpg' | relative_url }}" width="480"></figure>
     In a Jupyter notebook, I ran the following code to send three floats, `6.74`, `4.25`, and `2.19`.
-    <figure><img src="{{ '/assets/images/Lab1B_Task2_2.JPG' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task2_2.jpg' | relative_url }}" width="480"></figure>
     The Artemis board received the three floats and the values are printed in the Serial Monitor.
-    <figure><img src="{{ '/assets/images/Lab1B_Task2_3.JPG' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task2_3.jpg' | relative_url }}" width="480"></figure>
 
 3. To add the new command `GET_TIME_MILLIS` to class `CMD`, I modified `cmd_types.py` and `CommandTypes` in `ble_arduino.ino`.
-    <figure><img src="{{ '/assets/images/Lab1B_Task3_1.JPG' | relative_url }}" width="480"></figure>
-    <figure><img src="{{ '/assets/images/Lab1B_Task3_2.JPG' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task3_1.jpg' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task3_2.jpg' | relative_url }}" width="480"></figure>
     I created a new case for `GET_TIME_MILLIS` and wrote the following code.
-    <figure><img src="{{ '/assets/images/Lab1B_Task3_3.JPG' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task3_3.jpg' | relative_url }}" width="480"></figure>
     In a Jupyter notebook, I ran the following code to make the robot output a time stamp to the string characteristic.
     <figure><img src="{{ '/assets/images/Lab1B_Task3_4.JPG' | relative_url }}" width="480"></figure>
     The Artemis board outputs the time to the Serial Monitor in milliseconds.
-    <figure><img src="{{ '/assets/images/Lab1B_Task3_5.JPG' | relative_url }}" width="480"></figure> 
+    <figure><img src="{{ '/assets/images/Lab1B_Task3_5.jpg' | relative_url }}" width="480"></figure> 
 
 4. I wrote the following code to create a notification handler in a Jupyter notebook to retrieve the string value from the Artemis board. This string value contains the time stamp from the board.
-    <figure><img src="{{ '/assets/images/Lab1B_Task4.JPG' | relative_url }}" width="480"></figure> 
+    <figure><img src="{{ '/assets/images/Lab1B_Task4.jpg' | relative_url }}" width="480"></figure> 
 
 5. I created a new command `GET_TIME_MILLIS_FIVE_SEC` by modifying `cmd_types.py` and `CommandTypes` in `ble_arduino.ino`.
-    <figure><img src="{{ '/assets/images/Lab1B_Task5_1.JPG' | relative_url }}" width="480"></figure> 
-    <figure><img src="{{ '/assets/images/Lab1B_Task5_2.JPG' | relative_url }}" width="480"></figure> 
+    <figure><img src="{{ '/assets/images/Lab1B_Task5_1.jpg' | relative_url }}" width="480"></figure> 
+    <figure><img src="{{ '/assets/images/Lab1B_Task5_2.jpg' | relative_url }}" width="480"></figure> 
     I created a new case `GET_TIME_MILLIS_FIVE_SEC` and wrote the following code.
-    <figure><img src="{{ '/assets/images/Lab1B_Task5_3.JPG' | relative_url }}" width="480"></figure> 
+    <figure><img src="{{ '/assets/images/Lab1B_Task5_3.jpg' | relative_url }}" width="480"></figure> 
     In Jupyter notebook, this code prints as many time stamps as possible in 5 seconds. The output is shown in the notebook instead of the Serial Monitor.
-    <figure><img src="{{ '/assets/images/Lab1B_Task5_4.JPG' | relative_url }}" width="480"></figure> 
+    <figure><img src="{{ '/assets/images/Lab1B_Task5_4.jpg' | relative_url }}" width="480"></figure> 
     In these 5 seconds, 213 messages totaling 4,473 bytes were received from the Artemis board. This is an effective 42.6 messages or <b>894.6 bytes per second</b>.
 
 6. I created a new command `SEND_TIME_DATA` by modifying `cmd_types.py` and `CommandTypes` in `ble_arduino.ino`, similar to Tasks 3 and 5. I created an array `time_array` with a size of 300 in the global variables.
@@ -156,9 +152,9 @@ I installed Python 3.13 and pip. I created a new virtual environment using Comma
         unsigned long time_array[array_length];
     ```
     I created a new case and wrote the following code. The time stamps are stored into `time_array` for up to 5 seconds or until the array is full. After 5 seconds or the array is full, the notification handler receives each data point in the array as a string. 
-    <figure><img src="{{ '/assets/images/Lab1B_Task6_1.JPG' | relative_url }}" width="480"></figure> 
+    <figure><img src="{{ '/assets/images/Lab1B_Task6_1.jpg' | relative_url }}" width="480"></figure> 
     In Jupyter notebook, this code displays all of the time stamps in the array. 
-    <figure><img src="{{ '/assets/images/Lab1B_Task6_2.JPG' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task6_2.jpg' | relative_url }}" width="480"></figure>
     The array is full after 11 ms and stored 300 time stamps totaling 6,300 bytes. This is an effective rate of <b>572,727 bytes (or 0.573 megabytes) per second.</b> 
 
 7. I created a new command `GET_TEMP_READINGS` by modifying `cmd_types.py` and `CommandTypes` in `ble_arduino.ino`, similar to Tasks 3 and 5. I created a new array `temp_array` with the same size of 300. 
@@ -166,9 +162,9 @@ I installed Python 3.13 and pip. I created a new virtual environment using Comma
         unsigned long temp_array[array_length];
     ```
     I created a new case and wrote the following code. Similar to Task 6, the temperature readings are stored into `temp_array` for up to 5 seconds or until the array is full. 
-    <figure><img src="{{ '/assets/images/Lab1B_Task7_1.JPG' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task7_1.jpg' | relative_url }}" width="480"></figure>
     I created a new notification handler to parse through the string and add the information into two dedicated lists for time and temperature.
-    <figure><img src="{{ '/assets/images/Lab1B_Task7_2.JPG' | relative_url }}" width="480"></figure>
+    <figure><img src="{{ '/assets/images/Lab1B_Task7_2.jpg' | relative_url }}" width="480"></figure>
     The array is full after 117 ms and stored 300 time stamps and temperature readings totaling 15,000 bytes. This is an effective rate of <b>128,205 bytes per second</b>.
 
 8. The second method involving adding information to an array offers a much greater data transfer rate than sending data every loop iteration. The advantage of the first method (Task 5) is that it allows us to see the data in real-time, but a disadvantage is a much slower data transfer rate. The advantage of the second method (Tasks 6 and 7) is less overhead which allows higher transfer rates, but a disadvantage is that this method is RAM intensive. The first method is best for live monitoring of low-frequency signals, the second method is best for lab equipment that requires high sampling rates.  
