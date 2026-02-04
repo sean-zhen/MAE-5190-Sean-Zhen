@@ -1,5 +1,8 @@
 # Portfolio Instructions
 
+To run local server:
+bundle exec jekyll serve
+
 This is a template for you to start building your professional portfolio. It is also part of your journey at MAE and will be reviewed, as needed, by your instructor and the Undergraduate Program Office.
 
 Note that this is your personal copy of the portfolio template repository. It was created automatically when you accepted the Assignment through the GitHub Classroom link you were provided.
