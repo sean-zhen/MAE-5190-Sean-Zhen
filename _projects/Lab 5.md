@@ -2,7 +2,7 @@
 layout: project
 title: Lab 5
 description: Lab 5
-image: /assets/images/cat.jpg
+image: /assets/images/Lab5_PID.png
 ---
 
 <h3>Linear PID Control and Linear Interpolation</h3>
@@ -33,7 +33,15 @@ Because the error accumulates and continues to increase if the error stays posit
 
 I implemented code to eliminate the initial derivative kick. When the derivative term compares the current error to the last error, the difference is very high for the first reading because the last error is initialized to 0. To solve this issue, I set the last error to be the same as the current error for the first calculation. The derivative term would be equal to 0 for the first calculation, and then calculates normally afterwards. 
 
-I decided not to include a low pass filter for the derivative term because the data was not  noisy to be significant enough to affect the output for the motors. 
+I included a low-pass filter to smooth out the changes in error. This is what the derivative term would have contributed to the PID controller if there is no low-pass filter (alpha = 1).
+<figure>
+    <img src="{{ '/assets/images/Lab5_NoFilter.jpg' | relative_url }}"
+        width="480">
+</figure>
+To smooth out the data, I used an alpha of 0.1.
+
+Below is the full implementation of the PID controller:
+<script src="https://gist.github.com/sean-zhen/e67debd5949e5bba4870e02d94ae417f.js"></script>
 
 <div style="margin-top: 20px;"></div>
 <h4>Task 2: Extrapolation</h4>
