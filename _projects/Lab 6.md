@@ -21,50 +21,58 @@ I will initialize arrays when I run the controller and send these arrays to my c
 
 <h3>Lab Tasks</h3>
 
-Static friction on-axis turn re-calibration
+Before I calibrated the PI controller, I checked the minimum PWM value required to make the robot make an on-axis turn. The minimum for the left motor is 153, and the minimum for the right motor is 180. Based on these values, I created a calibration factor of `pwm_left = 0.85 * pwm_right`.
 
-Gyroscope calculation
+<u>PID Input Signal</u>
 
----------------------------------------------------
+To calculate the yaw angle of the robot, I first initialized the yaw as 0 degrees. The equation to calculate the yaw is `yaw = yaw + myICM.gyrZ() * dt`, where `dt` is in seconds. 
 
-Lab Tasks
-    P/I/D discussion (Kp/Ki/Kd values chosen, why you chose a combination of controllers, etc.)
-    Range/Sampling time discussion
-    Graphs, code, videos, images, discussion of reaching task goal
-    Graph data should at least include theta vs time (you can also consider angular velocity, motor input, etc)
-    (5000) Wind-up implementation and discussion
+Digital integration of gyroscope data over time can cause the yaw reading to drift due to bias. Any drift in the gyroscope data can lead to large and growing error over time. For example, a bias of 0.1°/s causes an error of 6° after one minute. One way to minimize this problem is to have bias calibration by recording the gyro output when the robot is stationary and subtract the average readings from all subsequent readings. 
 
+Based on the graph of yaw readings below, the yaw reading slightly drifted to around 0.1 degrees after roughly one second. This would cause an error of ~6° after one minute.
 
-5000-level students can choose between PI and PID controllers.
+The IMU datasheet states that the maximum rotational velocity that the gyroscope can read is 2000 degrees per second, which is 5.56 rotations per second. This is very sufficient for our robots. We can adjust the gyroscope sensitivity by changing the `GYRO_FS_SEL` parameter. 
 
-For this lab, we will work on implementing stationary (in place) orientation control. The control signal (output from the PID controller) will be a differential drive value. The wheel should be driven at the same speed in opposite directions in order to control the orientation of the robot
+<u>Derivative Term</u>
 
+It does not make sense to take the derivative of a signal that is already integrated. Differentiating the integrated signal would give the angular velocity, but this can come with additional noise. The best way to calculate the derivative term is to use the raw gyroscope measurement directly and simply multiply that reading by `Kd`. 
 
-PID Input Signal
+A sudden change in the setpoint can cause a large jump in the error signal and cause a derivative kick if the derivative term acts on the error in the signal. If we calculate the derivative term from the raw gyroscope reading rather than error, this would eliminate the kick. A low pass filter is needed before the derivative term to remove the noise from the readings to make the derivative term more stable. 
 
-    You should integrate your gyroscope to get an estimate for the orientation of the robot.
-    Are there any problems that digital integration might lead to over time? Are there ways to minimize these problems?
-    Does your sensor have any bias, and are there ways to fix this? How fast does your error grow as a result of this bias? Consider using the onboard digital motion processor (DMP) built into your IMU to minimize yaw drift.
-    Are there limitations on the sensor itself to be aware of? What is the maximum rotational velocity that the gyroscope can read (look at spec sheets and code documentation on github). Is this sufficient for our applications, and is there a way to configure this parameter?
+<u>Programming Implementation</u>
 
-Derivative Term
+As mentioned in the prelab, I coded my command such that I can repeatedly send inputs to the Artemis over Bluetooth. This allows me to easily tune the PID terms without having to upload new code every time I need to change the values. In future applications of the PID controller, it will be necessary to change the setpoint in real time to make the robot drive at specific relative angles or approach at objects at certain distances. 
 
-    Does it make sense to take the derivative of a signal that is the integral of another signal.
-    Think about derivative kick. Does changing your setpoint while the robot is running cause problems with your implementation of the PID controller?
-    Is a low pass filter needed before your derivative term?
+It is possible to control the orientation while the robot is driving forward or backward. Based on the gyroscope readings and specific setpoint, we can calculate a rotational PWM value and simply add it to the translational PWM value for each motor. The orientation and translational PID loops would run separately and each PID loop would calculate its respective PWM values to input to the motors. 
 
-Programming Implementation
+<u>PI Controller</u>
 
-    Have you implemented your code in such a way that you can continue sending an processing Bluetooth commands while your controller is running?
-    This is essential for being able to tune the PID gains quickly.
-    This is also essential for being able to change the setpoint while the robot is running.
-    Think about future applications of your PID controller with regards to navigation or stunts. Will you need to be able to update the setpoint in real time?
-    Can you control the orientation while the robot is driving forward or backward? This is not required for this lab, but consider how this might be implemented in the future and what steps you can take now to make adding this functionality simple.
+The final values for my PI controller is `Kp = 4, Ki = 50`. I decided not to include a derivative term in my controller because the friction in the motors and gearboxes provide enough of a damping force such that the robot does not oscillate around its setpoint and the overshoot is minimal. The integral term is very high because of the large PWM values necessary to overcome the static friction in the motors. The integral term needs to react quickly for accumulating error between the gyroscope yaw reading and the setpoint. 
 
-Include graphs of all appropriate measurements needed to debug your PID controller. Below is an example the set point, angle and motor offset plotted as a function of time. Observe the overshoot and settling time of the angle and the response of the motor values.
+Below is the full implementation of the PI controller:
+<script src="https://gist.github.com/sean-zhen/aa881123bc1f423d07817c25836b8785.js"></script>
 
-Tasks for 5000-level students
+<figure>
+    <img src="{{ '/assets/images/Lab6_YawGraph.jpg' | relative_url }}"
+        width="480">
+</figure>
+<figure>
+    <img src="{{ '/assets/images/Lab6_PIDGraph.jpg' | relative_url }}"
+        width="480">
+</figure>
+<iframe width="480" height="270" src="https://youtube.com/embed/EaBy5hpud-Y" allowfullscreen> </iframe>
 
-Implement wind-up protection for your integrator. Argue for why this is necessary (you may for example demonstrate how your controller works reasonably independent of floor surface).
+I pushed the robot two times and the robot was able to maintain its starting heading within 1 degree. The integral term was useful to make the robot make small adjustments due to accumulating error when the Kp term alone was not able to turn the robot. 
 
-Word Limit: < 800 words
+<u>Sampling Time</u>
+
+With a timeout value of 10 seconds, the robot recorded 1123 datapoints. This corresponds to a sampling frequency of 112.3 Hz, which is very quick for the PI controller to make small changes to the heading control. 
+
+<div style="margin-top: 20px;"></div>
+<h4>Tasks for 5000-level students</h4>
+Similarly to Lab 5, I implemented wind-up protection for the integrator. This is necessary because the total error accumulates and continues to increase when the error remains positive. This can cause the integrator term to be excessively large and can dominate over the Kp and Kd terms. To prevent the integrator term from over-saturating the controller, I clamped the integrator term if it exceeded the value of 130. This limits the integrator term to contributing a maximum of ~51% speed to the controller. This value was found through experimental testing. 
+<script src="https://gist.github.com/sean-zhen/d5622f7b02b956efcd872c76320f9238.js"></script>
+
+<div style="margin-top: 20px;"></div>
+<h3>Collaborators</h3>
+I collaborated with Sam Zhen while working on this lab.
