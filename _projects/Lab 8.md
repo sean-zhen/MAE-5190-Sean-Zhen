@@ -2,7 +2,7 @@
 layout: project
 title: Lab 8
 description: Lab 8
-image: /assets/images/cat.jpg
+image: /assets/images/Lab8_Robot.jpg
 ---
 
 <h3>Stunts!</h3>
